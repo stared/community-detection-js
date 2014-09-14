@@ -1,0 +1,12 @@
+.node {
+  stroke: #000;
+  stroke-width: 1.0px;
+}
+
+.selected_node {
+  stroke-width: 2.0px;
+}
+
+.link {
+  stroke: #000;
+}
