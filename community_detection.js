@@ -175,6 +175,6 @@ function communitize (nodes, links, weight_func) {
   var res = clusterize(u.mass, u.community_degree, u.intercom_links);
   var comm = dendrogram_to_communities(res.dendrogram, res.community_degree, nodes);
   for (var i=0; i < nodes.length; i++) {
-    nodes[i]['community'] = comm[i];
+    nodes[i]['community'] = comm.length - comm[i];  // reversed - slightly better for adding nodes
   }
 }
