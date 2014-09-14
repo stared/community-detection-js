@@ -49,6 +49,11 @@ function tick() {
 
 // update graph (called when needed)
 function restart() {
+
+  // hope numbering wont change
+  links2 = links.map(function (d) {return {source: d.source.id, target: d.target.id}; });
+  communitize(nodes, links2);
+
   // line (link) group
   line = line.data(links);
 
@@ -75,8 +80,6 @@ function restart() {
   g.append('svg:circle')
     .attr('class', 'node')
     .attr('r', 12)
-    .style('fill', function(d) { return (d === selected_node) ? d3.rgb(colors(d.id)).brighter().toString() : colors(d.id); })
-    // .style('stroke', function(d) { return d3.rgb(colors(d.id)).darker().toString(); })
     .on('mouseover', function(d) {
       if(!selected_node || d === selected_node) return;
       // enlarge target node
@@ -105,12 +108,15 @@ function restart() {
 
     });
 
-  // show node IDs
-  g.append('svg:text')
-      .attr('x', 0)
-      .attr('y', 4)
-      .attr('class', 'id')
-      .text(function(d) { return d.id; });
+    circle.selectAll('circle')
+      .style('fill', function(d) { return (d === selected_node) ? d3.rgb(colors(d.community)).brighter().toString() : colors(d.community); });
+
+  // // show node IDs
+  // g.append('svg:text')
+  //     .attr('x', 0)
+  //     .attr('y', 4)
+  //     .attr('class', 'id')
+  //     .text(function(d) { return d.id; });
 
   // remove old nodes
   circle.exit().remove();
